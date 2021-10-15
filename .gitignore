@@ -44,6 +44,7 @@ secrets.env
 .project
 .classpath
 .settings
+.target/
 
 # vim
 [._]*.s[a-w][a-z]
