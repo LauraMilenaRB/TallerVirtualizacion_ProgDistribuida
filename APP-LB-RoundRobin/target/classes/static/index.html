@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+        <script src="apiclientCadena.js"></script>
+        <script src="cadena.js"></script>
+        <title> Taller </title>
+    </head>
+    <body>
+        <div class="jumbotron text-center" style="background:white" >
+            <h3>Tarea para desplegarla en AWS usando EC2 y Docker.</h3>
+            <div class="form-group">
+                <label for="text">Digite la cadena a insertar a la base de datos:</label>
+                <input type="text" class="form-control" style="background:gray" placeholder="valor de la cadena" id="cadena">
+            </div>
+            <a onclick="cadena.enviarCadena()" class="btn btn-success" role="button">Enviar</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped" id="tablaCadenas">
+                <thead>
+                <tr>
+                    <th>Cadena</th>
+                    <th>Fecha y Hora</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

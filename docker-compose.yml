@@ -1,0 +1,50 @@
+version: '3.3'
+
+services:
+
+    loadbalancer:
+        build:
+            context: ./APP-LB-RoundRobin
+            dockerfile: Dockerfile
+        container_name: loadbalancer
+        ports: 
+            - 80:80
+        depends_on:
+            - service1
+            - service2
+            - service3    
+    service1:
+        build:
+            context: ./logService
+            dockerfile: Dockerfile
+        container_name: service1
+        ports: 
+            - 35001:8080
+    service2:
+        build:
+            context: ./logService
+            dockerfile: Dockerfile
+        container_name: service2
+        ports: 
+            - 35002:8080
+    service3:
+        build:
+            context: ./logService
+            dockerfile: Dockerfile
+        container_name: service3
+        ports: 
+            - 35003:8080
+            
+    db:
+        image: mongo:3.6.1
+        container_name: db_mongo
+        volumes:
+            - mongodb:/data/db
+            - mongodb_config:/data/configdb
+        ports:
+            - 27017:27017
+        command: mongod   
+        
+volumes:
+    mongodb:
+    mongodb_config: 
