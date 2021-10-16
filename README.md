@@ -1,1 +1,1 @@
-# TallerVirtualizacion_ProgDistribuida-AYGO
+# TallerVirtualizacion_ProgDistribuida
