@@ -9,7 +9,7 @@ import org.mongodb.morphia.Morphia;
 import com.mongodb.MongoClient;
 
 public class CadenaService {
-    MongoClient client = new MongoClient("b272950d62c5", 27017); //connect to mongodb
+    MongoClient client = new MongoClient("db", 27017); //connect to mongodb
     Datastore datastore = new Morphia().createDatastore(client, "cadena"); //select shop collection
     static final Logger logger = Logger.getLogger(CadenaService.class.getName());
     List<Cadena> lista=null;
