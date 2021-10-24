@@ -13,15 +13,16 @@
         <div class="jumbotron text-center" style="background:white" >
             <h3>Tarea para desplegarla en AWS usando EC2 y Docker.</h3>
             <div class="form-group">
-                <label for="text">Digite la cadena a insertar a la base de datos:</label>
-                <input type="text" class="form-control" style="background:gray" placeholder="valor de la cadena" id="cadena">
+                <label for="cadena">Digite la cadena a insertar a la base de datos:</label>
+                <input id="cadena" placeholder="valor de la cadena" type="text" required minlength="1" size="150">
             </div>
-            <a onclick="cadena.enviarCadena()" class="btn btn-success" role="button">Enviar</a>
+            <button onclick="cadena.enviarCadena()" type="button">Enviar cadena</button>
         </div>
         <div class="table-responsive">
             <table class="table table-striped" id="tablaCadenas">
                 <thead>
                 <tr>
+                    <th>id</th>
                     <th>Cadena</th>
                     <th>Fecha y Hora</th>
                 </tr>

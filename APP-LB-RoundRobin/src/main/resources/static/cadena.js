@@ -1,12 +1,7 @@
 function adicionarFila(item) {
-    var markup = "<tr class=\"filasP\"><td>" + item.name + "</td><td>" + item.id + "</td></tr>";
+    var markup = "<tr class=\"filasP\"><td>" + item.id + "</td><td>" + item.value + "</td><td>"+ item.dateRegister + "</td></tr>";
     $("#tablaCadenas").append(markup);
 }
-
-function inicializarElementos() {
-    $(".filasP").remove("tr");
-}
-
 
 var cadena = (function () {
 	var nombres;
@@ -17,9 +12,9 @@ var cadena = (function () {
         		alert("Inserte una cadena");
         	}
         	else{
-        		var promesa = apiclientCadena.addCadenas(cadena);
+        		var promesa = apiclientCadena.addCadena(cadena);
         		promesa.done(function(data){
-        			inicializarElementos();
+        			$(".filasP").remove("tr");
         			JSON.parse(data).map(adicionarFila);
         		})
                 .fail(function(){
@@ -28,7 +23,7 @@ var cadena = (function () {
         	}
         },
         adicionarFila2(item) {
-            var markup = "<tr class=\"filasP\"><td>" + item.name + "</td><td>" + item.id + "</td></tr>";
+            var markup = "<tr class=\"filasP\"><td>" + item.id + "</td><td>" + item.value + "</td><td>"+ item.dateRegister + "</td></tr>";
             $("#tablaCadenas").append(markup);
         }
     };

@@ -1,11 +1,10 @@
 var apiclientCadena = (function(){
-    var ipBackEnd = "http://localhost"
     return{
-    	addCadenas(cadena){
+    	addCadena(cadena){
             return $.ajax({
-                url:  ipBackEnd+"/loadbalancer",
+                url:  "http://localhost/loadbalancer",
                 type: "POST",
-                data: '{"name":"'+cadena+'"}',
+                data: cadena,
                 contentType: "application/json"});
         }
     };
