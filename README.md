@@ -8,20 +8,20 @@
 
 ### Componentes de la aplicación
 #### Balanceador y front
-```
 En el repositorio APP-LB-RoundRobin se ecuentra el front y el balanceador Round Robin.
+```
 puerto: 80
 ```
 #### Api REST
-```
 En el repositorio logService se ecuentra el Api REST que corre con SparkJava.
 Utiliza la libreria org.mongodb.morphia para conectarse con MongoDB.
-puerto: 34001,34002,34003
+```
+puerto: 34001, 34002, 34003
 ```
 ![img.png](imagenes/img.png)
 #### Base de datos: MongoDB
-```
 Se usa la imagen docker de mongo:3.6.1
+```
 puerto: 27017
 ```
 
