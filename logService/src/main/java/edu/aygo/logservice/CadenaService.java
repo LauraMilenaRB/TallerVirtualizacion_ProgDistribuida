@@ -14,7 +14,7 @@ public class CadenaService {
     static final Logger logger = Logger.getLogger(CadenaService.class.getName());
     List<Cadena> lista=null;
 
-    public List<Cadena> getCadena(String register){
+    public List<Cadena> addCadena(String register){
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         try{

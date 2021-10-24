@@ -29,9 +29,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/")
 public class BalanceController {
-    String client1 = "http://172.17.0.1:35001/cadena/";
-    String client2 = "http://172.17.0.1:35002/cadena/";
-    String client3 = "http://172.17.0.1:35003/cadena/";
+    String client1 = "http://172.17.0.1:34001/cadena/";
+    String client2 = "http://172.17.0.1:34002/cadena/";
+    String client3 = "http://172.17.0.1:34003/cadena/";
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "loadbalancer", method = RequestMethod.POST, consumes =MediaType.APPLICATION_JSON_VALUE)
