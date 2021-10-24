@@ -71,13 +71,13 @@ puerto: 27017
 Luego revisamos las imagenes disponibles y las desplegamos en un repositorio de DockerHub
    ![img_9.png](imagenes/img_9.png)
    ```
-   docker tag virtualizacionprogdistri_logservice1 lauramilenarb/aygo1:web1
+   docker tag virtualizacionprogdistribuida_logservice1 lauramilenarb/aygo1:web1
    docker push lauramilenarb/aygo1:web1
-   docker tag virtualizacionprogdistri_logservice2 lauramilenarb/aygo1:web2
+   docker tag virtualizacionprogdistribuida_logservice2 lauramilenarb/aygo1:web2
    docker push lauramilenarb/aygo1:web2
-   docker tag virtualizacionprogdistri_logservice3 lauramilenarb/aygo1:web3
+   docker tag virtualizacionprogdistribuida_logservice3 lauramilenarb/aygo1:web3
    docker push lauramilenarb/aygo1:web3
-   docker tag virtualizacionprogdistri_loadbalancer lauramilenarb/aygo1:loadbalancer
+   docker tag virtualizacionprogdistribuida_loadbalancer lauramilenarb/aygo1:loadbalancer
    docker push lauramilenarb/aygo1:loadbalancer
    docker tag mongo:3.6.1 lauramilenarb/aygo1:db
    docker push lauramilenarb/aygo1:db
