@@ -7,24 +7,23 @@
 3. Instalar mvn.
 
 ### Componentes de la aplicación
-#### Balanceador y front
-```
+#### Balanceador y front 
 En el repositorio APP-LB-RoundRobin se ecuentra el front y el balanceador Round Robin.
+```
 puerto: 80
 ```
 #### Api REST
-```
 En el repositorio logService se ecuentra el Api REST que corre con SparkJava.
 Utiliza la libreria org.mongodb.morphia para conectarse con MongoDB.
-puerto: 34001,34002,34003
+```
+puerto: 34001, 34002, 34003
 ```
 ![img.png](imagenes/img.png)
 #### Base de datos: MongoDB
+Se usa la imagen docker de mongo:3.6.1.
 ```
-Se usa la imagen docker de mongo:3.6.1
 puerto: 27017
 ```
-
 ### Configuracion incial
 1. Clonar este repositorio con git mediante el siguiente comando:
     ```
@@ -82,29 +81,40 @@ Luego revisamos las imagenes disponibles y las desplegamos en un repositorio de 
    docker tag mongo:3.6.1 lauramilenarb/aygo1:db
    docker push lauramilenarb/aygo1:db
    ```
-Luego de ejecutar los comandos anteriores se debe visualizar lo siguiente:
+Luego de ejecutar los comandos anteriores se debe visualizar lo siguiente desde Docker Hub:
 ![img_10.png](imagenes/img_10.png)
+
 ### Despliegue en la nube AWS
-1. Cree una maquina virtual linux en AWS EC2.
+1. Cree una maquina virtual linux en AWS EC2 y conectese mediante SSH.
+   ![img_11.png](imagenes/img_11.png)
 2. Instalar docker en la máquina virutal
    ```
    sudo yum update -y
    sudo yum install docker
    sudo usermod -a -G docker ec2-user
-   sudo service docker start
+   exit
    ```
-3. A partir de la imagen creada en Dockerhub cree una instancia de un contenedor docker independiente:
+3. Conectese nuevamente a la instancia EC2 y luego ejecute el siguiente comando:
+   ```
+   sudo service docker start
+   docker login ...
+   ```
+4. A partir del repositorio creado en Dockerhub cree una instancia de un contenedor docker independiente:
    ```
    docker run -d -p 27017:27017 --name db -v mongodb:/data/db -v mongodb_config:/data/configdb lauramilenarb/aygo1:db
-   docker run -d -p 34001:8080 --name logserver1 lauramilenarb/aygo1:web1
-   docker run -d -p 34002:8080 --name logserver2 lauramilenarb/aygo1:web2
-   docker run -d -p 34002:8080 --name logserver3 lauramilenarb/aygo1:web3
+   docker run -d -p 34001:6000 --name logserver1 lauramilenarb/aygo1:web1
+   docker run -d -p 34002:6000 --name logserver2 lauramilenarb/aygo1:web2
+   docker run -d -p 34003:6000 --name logserver3 lauramilenarb/aygo1:web3
    docker run -d -p 80:80 --name loadbalancer lauramilenarb/aygo1:loadbalancer
    ```
    Verifique que se esten ejecutando correctamente con el siguiente comando:
    ```
    docker ps
    ```
-4. Abra los puertos de entrada del security group de la máxima virtual para acceder al servicio.
-5. Verifique que la APP se ejecute correctamente desde AWS.
+   ![img_12.png](imagenes/img_12.png)
+5. Abra los puertos de entrada del security group de la máquina virtual para acceder al servicio.
+   ![img_13.png](imagenes/img_13.png)
+6. Verifique que la APP se ejecute correctamente desde AWS.
+   ![img_14.png](imagenes/img_14.png)
+   
    

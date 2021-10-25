@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class BalanceController {
-    String client1 = "http://127.0.0.1:34001/cadena/";
-    String client2 = "http://127.0.0.1:34002/cadena/";
-    String client3 = "http://127.0.0.1:34003/cadena/";
+    String client1 = "http://172.17.0.1:34001/cadena/";
+    String client2 = "http://172.17.0.2:34002/cadena/";
+    String client3 = "http://172.17.0.3:34003/cadena/";
 
     private String loadbalancer(){
         String urlClient = "";
@@ -48,6 +48,7 @@ public class BalanceController {
                 CloseableHttpResponse respuesta = httpClient.execute(request);
                 HttpEntity entity = respuesta.getEntity();
                 String responseString = EntityUtils.toString(entity, "UTF-8");
+                System.out.println("Resultado: "+responseString);
                 return new ResponseEntity<String>(responseString, HttpStatus.ACCEPTED);
             } catch (Exception ex) {
                 return new ResponseEntity<String>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
