@@ -55,20 +55,14 @@ puerto: 27017
     
     ![img_4.png](imagenes/img_4.png)
 5. Compruebe de manera local que los contenedores se esten ejecutando de manera correcta.
-   1. Front y loadbalancer Round Robin.
-      ![img_7.png](imagenes/img_7.png)
-      Luego de enviar la cadena debe visualizarse algo como esto: 
+   1. Luego de enviar la cadena debe visualizarse algo como esto: .
       ![img_8.png](imagenes/img_8.png)
-   2. logservice1 y conexión con mongoDB.
-      ![img_3.png](imagenes/img_3.png)
-   3. logservice2 y conexión con mongoDB.
+   2. logservice y conexión con mongoDB.
       ![img_5.png](imagenes/img_5.png)
-   4. logservice3 y conexión con mongoDB.
-      ![img_6.png](imagenes/img_6.png)
    
-### Desplegando imagenes en DockerHub
+### Desplegando imagenes en Docker Hub
 
-Luego revisamos las imagenes disponibles y las desplegamos en un repositorio de DockerHub
+Luego revisamos las imagenes disponibles y las desplegamos en un repositorio de Docker Hub.
    ![img_9.png](imagenes/img_9.png)
    ```
    docker tag mongo:3.6.1 lauramilenarb/db:latest
@@ -83,9 +77,11 @@ Luego de ejecutar los comandos anteriores se debe visualizar lo siguiente desde 
 ![img_10.png](imagenes/img_10.png)
 
 ### Despliegue en la nube AWS
-1. Cree una maquina virtual linux en AWS EC2 y conectese mediante SSH.
+1. Cree una maquina virtual linux en AWS EC2 y configure los puertos de entrada del security group de la máquina virtual.
+   ![img_13.png](imagenes/img_13.png)
+2. Luego conectese mediante SSH a la maquina virtual para configurarla.
    ![img_11.png](imagenes/img_11.png)
-2. Instalar docker y docker compose en la máquina virutal
+3. Instalar docker y docker compose en la máquina virutal
    ```
    sudo yum update -y
    sudo yum install docker
@@ -94,12 +90,12 @@ Luego de ejecutar los comandos anteriores se debe visualizar lo siguiente desde 
    sudo usermod -a -G docker ec2-user
    exit
    ```
-3. Conectese nuevamente a la instancia EC2 y luego ejecute los siguientes comandos:
+4. Conectese nuevamente a la instancia EC2 y luego ejecute los siguientes comandos:
    ```
    sudo service docker start
    docker login 
    ```
-4. A partir de los repositorios creados en Docker Hub cree el archivo **docker-compose.yml** con las imagenes desplegadas:
+5. A partir de los repositorios creados en Docker Hub cree el archivo **docker-compose.yml** con las imagenes desplegadas:
    ```
    version: '2'
    services:
@@ -157,8 +153,6 @@ Luego de ejecutar los comandos anteriores se debe visualizar lo siguiente desde 
    docker ps
    ```
    ![img_12.png](imagenes/img_12.png)
-5. Abra los puertos de entrada del security group de la máquina virtual para acceder al servicio.
-   ![img_13.png](imagenes/img_13.png)
 6. Verifique que la APP se ejecute correctamente desde AWS.
    ![img_14.png](imagenes/img_14.png)
    
