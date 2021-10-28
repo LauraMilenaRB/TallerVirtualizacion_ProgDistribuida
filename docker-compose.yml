@@ -1,12 +1,16 @@
 version: '2'
 services:
-    loadbalancer:
+    front_balancer:
         build:
             context: ./APP-LB-RoundRobin
             dockerfile: Dockerfile
-        container_name: loadbalancer
+        container_name: front_balancer
         ports:
             - 80:80
+        links:
+            - logservice1
+            - logservice2
+            - logservice3
         depends_on:
             - logservice1
             - logservice2
@@ -46,8 +50,7 @@ services:
             - mongodb_config:/data/configdb
         ports:
             - 27017:27017
-        command: mongod   
-        
+        command: mongod
 volumes:
     mongodb:
     mongodb_config:

@@ -71,16 +71,13 @@ puerto: 27017
 Luego revisamos las imagenes disponibles y las desplegamos en un repositorio de DockerHub
    ![img_9.png](imagenes/img_9.png)
    ```
-   docker tag virtualizacionprogdistribuida_logservice1 lauramilenarb/aygo1:web1
-   docker push lauramilenarb/aygo1:web1
-   docker tag virtualizacionprogdistribuida_logservice2 lauramilenarb/aygo1:web2
-   docker push lauramilenarb/aygo1:web2
-   docker tag virtualizacionprogdistribuida_logservice3 lauramilenarb/aygo1:web3
-   docker push lauramilenarb/aygo1:web3
-   docker tag virtualizacionprogdistribuida_loadbalancer lauramilenarb/aygo1:loadbalancer
-   docker push lauramilenarb/aygo1:loadbalancer
-   docker tag mongo:3.6.1 lauramilenarb/aygo1:db
-   docker push lauramilenarb/aygo1:db
+   docker tag mongo:3.6.1 lauramilenarb/db:latest
+   docker push lauramilenarb/db:latest
+   docker tag virtualizacionprogdistribuida_logservice1:latest lauramilenarb/logservice:latest
+   docker push lauramilenarb/logservice:latest
+   docker tag virtualizacionprogdistribuida_front_balancer:latest lauramilenarb/front:latest
+   docker push lauramilenarb/front:latest
+
    ```
 Luego de ejecutar los comandos anteriores se debe visualizar lo siguiente desde Docker Hub:
 ![img_10.png](imagenes/img_10.png)
@@ -88,28 +85,75 @@ Luego de ejecutar los comandos anteriores se debe visualizar lo siguiente desde 
 ### Despliegue en la nube AWS
 1. Cree una maquina virtual linux en AWS EC2 y conectese mediante SSH.
    ![img_11.png](imagenes/img_11.png)
-2. Instalar docker en la máquina virutal
+2. Instalar docker y docker compose en la máquina virutal
    ```
    sudo yum update -y
    sudo yum install docker
+   sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+   sudo chmod +x /usr/local/bin/docker-compose
    sudo usermod -a -G docker ec2-user
    exit
    ```
-3. Conectese nuevamente a la instancia EC2 y luego ejecute el siguiente comando:
+3. Conectese nuevamente a la instancia EC2 y luego ejecute los siguientes comandos:
    ```
    sudo service docker start
-   docker login ...
+   docker login 
    ```
-4. A partir del repositorio creado en Dockerhub cree una instancia de un contenedor docker independiente:
+4. A partir de los repositorios creados en Docker Hub cree el archivo **docker-compose.yml** con las imagenes desplegadas:
    ```
-   docker run -d -p 27017:27017 --name db -v mongodb:/data/db -v mongodb_config:/data/configdb lauramilenarb/aygo1:db
-   docker run -d -p 34001:6000 --name logserver1 lauramilenarb/aygo1:web1
-   docker run -d -p 34002:6000 --name logserver2 lauramilenarb/aygo1:web2
-   docker run -d -p 34003:6000 --name logserver3 lauramilenarb/aygo1:web3
-   docker run -d -p 80:80 --name loadbalancer lauramilenarb/aygo1:loadbalancer
+   version: '2'
+   services:
+      front_balancer:
+         image: lauramilenarb/front
+         container_name: front_balancer
+         ports:
+            - 80:80
+         links:
+            - logservice1
+            - logservice2
+            - logservice3
+         depends_on:
+            - logservice1
+            - logservice2
+            - logservice3
+      logservice1:
+         image: lauramilenarb/logservice
+         container_name: logservice1
+         ports:
+            - 34001:6000
+         depends_on:
+            - db
+         logservice2:
+         image: lauramilenarb/logservice
+         container_name: logservice2
+         ports:
+            - 34002:6000
+         depends_on:
+            - db
+      logservice3:
+         image: lauramilenarb/logservice
+         container_name: logservice3
+         ports:
+            - 34003:6000
+         depends_on:
+            - db
+      db:
+         image: lauramilenarb/db
+         container_name: db
+         volumes:
+            - mongodb:/data/db
+            - mongodb_config:/data/configdb
+         ports:
+            - 27017:27017
+         command: mongod
+   volumes:
+      mongodb:
+      mongodb_config:
    ```
-   Verifique que se esten ejecutando correctamente con el siguiente comando:
+
+   Ejecute y verifique que las imagenes se esten ejecutando correctamente con el siguiente comando:
    ```
+   docker-compose up -d
    docker ps
    ```
    ![img_12.png](imagenes/img_12.png)

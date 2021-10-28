@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class BalanceController {
-    String client1 = "http://172.17.0.1:34001/cadena/";
-    String client2 = "http://172.17.0.1:34002/cadena/";
-    String client3 = "http://172.17.0.1:34003/cadena/";
+    String client1 = "http://"+"logservice1"+":6000/cadena/";
+    String client2 = "http://"+"logservice2"+":6000/cadena/";
+    String client3 = "http://"+"logservice3"+":6000/cadena/";
 
     private String loadbalancer(){
         String urlClient = "";
